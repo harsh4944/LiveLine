@@ -1,189 +1,178 @@
 # 🎙️ LiveLine
 
-### On-Device Live Captioning & Translation for Snapdragon-Powered HP PCs
+## On-Device Live Captioning & Translation for Snapdragon-Powered HP PCs
 
-**LiveLine** is an offline-first, privacy-preserving live captioning and translation assistant built for **Snapdragon-powered HP PCs**.
+**LiveLine** is an offline-first, privacy-focused live captioning and translation assistant designed for **Snapdragon-powered HP PCs**.
 
-It transcribes speech in real time and optionally translates the transcript into another language — with inference designed to run **entirely on-device using the Snapdragon NPU**.
+It transcribes speech in real time and optionally translates it into another language, with the goal of running AI inference **locally on the Snapdragon NPU** — without sending audio to the cloud.
 
-> Built for the **Snapdragon® AI Lab Build & Present Challenge by Qualcomm**
-
----
-
-## ✨ Key Highlights
-
-* 🎤 **Real-time speech-to-text**
-* ⚡ **Snapdragon NPU acceleration**
-* 🔒 **100% offline & privacy-first**
-* 🌐 **Optional on-device translation**
-* 🖥️ **Always-on-top caption overlay**
-* 📄 **Continuous transcript export**
-* ✈️ Works without an internet connection
-* 📊 **NPU vs CPU latency benchmarking**
+> 🏆 Built for the **Snapdragon® AI Lab Build & Present Challenge by Qualcomm**
 
 ---
 
-## 🧩 Problem
+## ✨ Features
 
-Modern real-time captioning and translation tools often depend on cloud-based speech APIs. This creates three major challenges:
+* 🎤 Real-time speech-to-text
+* ⚡ Snapdragon NPU acceleration
+* 🔒 Privacy-focused on-device inference
+* 🌐 Optional on-device translation
+* ✈️ Designed to work completely offline
+* 🖥️ Always-on-top caption overlay
+* 📄 Continuous transcript export
+* 📊 CPU vs NPU latency benchmarking
+* ♿ Designed with accessibility use cases in mind
 
-### 🔐 Privacy
+---
 
-Meetings, interviews, classrooms, and other conversations may contain sensitive information. Sending audio to external servers introduces unnecessary privacy risks.
+# 🧩 Problem
+
+Real-time captioning and translation solutions often depend on cloud-based speech APIs.
+
+This creates three recurring challenges:
+
+### 🔐 Privacy Risk
+
+Meetings, interviews, classrooms, and other conversations can contain sensitive information. Sending audio to external servers creates additional privacy concerns.
 
 ### 🌐 Internet Dependency
 
-Cloud-based services stop working when connectivity is poor or unavailable. This is particularly challenging for:
+Cloud-based captioning can become unavailable when connectivity is poor or completely unavailable.
+
+This can affect:
 
 * Rural classrooms
 * Field teams
-* Low-bandwidth environments
+* Low-bandwidth regions
 * Travel and offline environments
 
 ### ⏱️ Latency & Cost
 
-Continuous cloud inference introduces network round trips and recurring per-minute processing costs.
+Cloud inference introduces network round trips and continuous usage costs, which can become difficult to scale for long-running applications.
 
 ---
 
-## 💡 Solution
+# 💡 Solution
 
-LiveLine brings speech recognition directly onto the user's PC.
+**LiveLine brings live captioning directly onto the user's PC.**
 
 ### Offline-first
 
-LiveLine is designed to work with **zero internet connectivity**.
+LiveLine is designed to operate without an active internet connection.
 
-### Privacy by design
+### Privacy-focused
 
-Audio and inference remain on the local machine. There is no requirement to upload microphone data to a cloud speech API.
+Speech recognition is performed locally, avoiding the need for a cloud speech API in the core pipeline.
 
-### Accessibility focused
+### Accessibility
 
-LiveLine can assist:
+LiveLine is designed to support:
 
 * Hearing-impaired users
 * Non-native speakers
-* Students in classrooms
+* Students
+* Teachers
 * Meeting participants
-* Field workers
-* Users operating in low-connectivity environments
+* Field teams
+* Low-connectivity communities
 
 ---
 
-## 🏗️ Architecture
+# 🏗️ Architecture
 
 ```text
-                    ┌──────────────────┐
-                    │   Microphone     │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │  Audio Chunks    │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                 ┌───────────────────────┐
-                 │   Whisper STT Model   │
-                 │   Snapdragon NPU     │
-                 └───────────┬───────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │ Live Transcript  │
-                    └────────┬─────────┘
-                             │
-                    Optional Translation
-                             │
-                             ▼
-                 ┌────────────────────────┐
-                 │ On-Device MT Model     │
-                 └────────────┬───────────┘
-                              │
-                              ▼
-                    ┌──────────────────┐
-                    │ Caption Overlay  │
-                    └──────────────────┘
+┌─────────────────┐
+│   Microphone    │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│   Audio Chunks  │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────────────┐
+│     Whisper STT         │
+│  Snapdragon NPU / CPU   │
+└────────┬────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Live Transcript │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────────────┐
+│ Optional Translation    │
+│   On-Device MT Model    │
+└────────┬────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Caption Overlay │
+└─────────────────┘
 ```
 
 ---
 
-## ⚙️ Technical Stack
+# ⚡ Why the Snapdragon NPU?
 
-| Component       | Technology                           |
-| --------------- | ------------------------------------ |
-| Speech-to-Text  | Whisper Tiny / Whisper Small         |
-| AI Acceleration | Snapdragon NPU                       |
-| Model Runtime   | ONNX Runtime                         |
-| NPU Backend     | Qualcomm QNN Execution Provider      |
-| Model Source    | Qualcomm AI Hub                      |
-| Translation     | Optional on-device MT                |
-| UI              | Python + Tkinter                     |
-| Audio Input     | Microphone                           |
-| Platform        | Windows on Snapdragon-powered HP PCs |
+LiveLine is designed around local AI inference, making the Snapdragon NPU an important part of the system.
 
----
+### 🚀 Low Latency
 
-## 🚀 Why the Snapdragon NPU?
+NPU acceleration is intended to reduce inference latency and keep captions close to real time.
 
-LiveLine is designed around local AI inference, making the Snapdragon NPU an important part of the architecture.
+### 🔋 Efficient AI Inference
 
-### ⚡ Low Latency
-
-The Whisper encoder can achieve low inference latency on supported Snapdragon NPUs, helping keep captions close to real time.
-
-### 🔋 Efficient Local AI
-
-NPU acceleration allows AI workloads to run locally without continuously streaming audio to a remote service.
+Running supported AI workloads locally on the NPU can reduce dependence on cloud processing and network communication.
 
 ### 🔒 Privacy
 
-The core pipeline can operate locally:
+The core speech-to-text pipeline can run locally:
 
 ```text
 Microphone
     ↓
-Local AI inference
+Local AI Inference
     ↓
-Local transcript
+Transcript
     ↓
 Caption
 ```
 
-No cloud speech API is required.
+No cloud speech API is required for the offline pipeline.
 
 ### 🌐 Offline Capability
 
-The same application can operate in connected and disconnected environments.
+The application is designed to work in both connected and disconnected environments.
 
 ---
 
 # 🛠️ Technical Implementation
 
-## Speech-to-Text
+## 🎤 Speech-to-Text
 
-LiveLine supports a CPU development path and a Snapdragon NPU path.
+LiveLine supports two inference paths:
 
-### CPU
+### CPU Backend
 
-The CPU backend uses Whisper for local speech recognition and is useful for development and UI testing.
+The CPU backend uses Whisper locally and is useful for development, testing, and UI integration.
 
-### Snapdragon NPU
+### Snapdragon NPU Backend
 
 The NPU backend is designed around Qualcomm AI Hub's precompiled QNN-compatible Whisper models.
 
-The intended execution path is:
+The intended inference pipeline is:
 
 ```text
 Whisper Model
-     ↓
-ONNX / QNN
-     ↓
+      ↓
+QNN / ONNX
+      ↓
 ONNX Runtime
-     ↓
+      ↓
 QNN Execution Provider
-     ↓
+      ↓
 Snapdragon NPU
 ```
 
@@ -191,9 +180,7 @@ Snapdragon NPU
 
 ## 🌍 Translation
 
-Translation is an optional stage in the pipeline.
-
-Keeping translation optional allows the core captioning pipeline to remain lightweight and responsive.
+Translation is an optional stage in the LiveLine pipeline.
 
 ```text
 Speech
@@ -206,6 +193,8 @@ Optional Translation
   ↓
 Translated Caption
 ```
+
+Keeping translation optional allows the core captioning pipeline to remain lightweight.
 
 Future versions can expand support for additional Indian languages.
 
@@ -221,10 +210,10 @@ liveline/
 │   └── QNNWhisperEngine
 │
 ├── live_demo.py
-│   └── Console-based live captioning
+│   └── Console live-captioning loop
 │
 ├── overlay.py
-│   └── Always-on-top caption UI
+│   └── Always-on-top caption overlay
 │
 ├── requirements.txt
 │
@@ -233,7 +222,7 @@ liveline/
 
 ---
 
-# 🚀 Getting Started
+# 🚀 Setup
 
 ## 1. Clone the Repository
 
@@ -252,55 +241,65 @@ pip install -r requirements.txt
 
 ---
 
-# 🧪 Run the CPU Version
+# 🧪 Run It Today — CPU Version
 
-You can test LiveLine without a Snapdragon-specific setup.
+You can test LiveLine without Snapdragon-specific setup.
 
 ```bash
 python live_demo.py --backend cpu --chunk 4
 ```
 
-Speak into your microphone and LiveLine will generate timestamped captions.
+Speak into your microphone.
 
-A transcript is also written to:
+LiveLine will:
+
+1. Capture microphone audio
+2. Process audio in chunks
+3. Generate speech-to-text
+4. Display timestamped captions
+5. Save the transcript
+
+The transcript is written to:
 
 ```text
 transcript.txt
 ```
 
-This CPU path is useful for testing the application, microphone pipeline, UI, and overall user experience.
+This CPU path allows development and UI testing before configuring the Snapdragon NPU environment.
 
 ---
 
-# 💻 Snapdragon NPU Setup
+# 💻 Snapdragon Setup
 
 ## 1. Check Your Snapdragon Chipset
 
-On Windows PowerShell:
+Open Windows PowerShell:
 
 ```powershell
 Get-CimInstance Win32_Processor | Select-Object Name
 ```
 
-Record the exact processor name before selecting a Qualcomm AI Hub model.
+Note the exact processor name.
+
+The precompiled Qualcomm AI Hub model binaries are chipset-specific, so make sure the selected model supports your target Snapdragon platform.
 
 ---
 
-## 2. Install Qualcomm AI Hub Model Package
+## 2. Install the Whisper Model Package
 
-For the Whisper Tiny model:
+For Whisper Tiny:
 
 ```bash
 pip install "qai_hub_models[whisper_tiny_en]"
 ```
 
-Configure your Qualcomm AI Hub credentials if required by the installed model workflow:
+Configure Qualcomm AI Hub if required:
 
 ```bash
 qai-hub configure --api_token YOUR_TOKEN
 ```
 
-Qualcomm AI Hub:
+Get an API token from:
 
 https://aihub.qualcomm.com
 
@@ -308,9 +307,9 @@ https://aihub.qualcomm.com
 
 ## 3. Verify the Installed API
 
-The Qualcomm AI Hub model APIs can change between releases.
+Qualcomm AI Hub model APIs may vary between releases.
 
-Check the installed `App` interface before using the NPU backend:
+Check the installed `App` interface:
 
 ```bash
 python -c "from qai_hub_models.models.whisper_tiny_en import App; help(App)"
@@ -322,53 +321,53 @@ If the installed API differs from the implementation in `engine.py`, update the 
 
 # ⚡ Run the NPU Version
 
-Once the local QNN environment is configured:
+After configuring the required QNN environment:
 
 ```bash
 python live_demo.py --backend qnn --chunk 4
 ```
 
-LiveLine will use the QNN backend when the required model and runtime are available.
+The NPU backend uses the same engine interface as the CPU backend.
 
 ---
 
 # 🖥️ Caption Overlay
 
-Launch the graphical caption overlay:
+Run the caption overlay using CPU:
 
 ```bash
 python overlay.py --backend cpu --chunk 4
 ```
 
-For the Snapdragon NPU backend:
+Once the NPU backend is configured:
 
 ```bash
 python overlay.py --backend qnn --chunk 4
 ```
 
-The same engine interface allows the UI to work with either backend.
+The UI does not need to change when switching between inference backends.
 
 ---
 
 # 📊 Benchmarking
 
-LiveLine includes a CPU vs NPU benchmarking workflow.
+LiveLine includes a CPU vs NPU latency comparison workflow.
 
-Run the CPU version:
+### CPU
 
 ```bash
 python live_demo.py --backend cpu --chunk 4
 ```
 
-Then run the NPU version:
+### NPU
 
 ```bash
 python live_demo.py --backend qnn --chunk 4
 ```
 
-Compare the reported inference latency.
+The application reports the measured latency for each backend.
 
-### Example
+Example:
 
 ```text
 Backend: CPU
@@ -378,7 +377,7 @@ Backend: Snapdragon NPU
 Average latency: YY ms
 ```
 
-> **Note:** Actual latency depends on the Snapdragon chipset, model variant, quantization, audio chunk size, runtime version, thermal conditions, and system configuration. Benchmark numbers should be reported from the target HP Snapdragon device rather than assumed values.
+> ⚠️ Actual latency depends on the Snapdragon chipset, Whisper model, quantization, audio chunk size, runtime version, thermal conditions, and system configuration. Benchmark results should be measured on the actual target HP Snapdragon PC.
 
 ---
 
@@ -387,11 +386,142 @@ Average latency: YY ms
 LiveLine is designed around an **on-device processing architecture**.
 
 ```text
-             ┌───────────────────────┐
-             │       Microphone      │
-             └───────────┬───────────┘
-                         │
-                         ▼
-             ┌───────────────────────┐
-             │   Local
+             ┌─────────────────┐
+             │   Microphone    │
+             └────────┬────────┘
+                      │
+                      ▼
+             ┌─────────────────┐
+             │ Local Inference │
+             └────────┬────────┘
+                      │
+                      ▼
+             ┌─────────────────┐
+             │    Transcript   │
+             └────────┬────────┘
+                      │
+                      ▼
+             ┌─────────────────┐
+             │ Caption Overlay │
+             └─────────────────┘
 ```
+
+The offline pipeline does not require sending microphone audio to a cloud speech API.
+
+---
+
+# ✈️ Offline Demo
+
+LiveLine can be demonstrated with network connectivity disabled.
+
+### Demo flow
+
+```text
+1. Start LiveLine
+       ↓
+2. Disable Wi-Fi / enable Airplane Mode
+       ↓
+3. Speak into microphone
+       ↓
+4. Whisper processes audio locally
+       ↓
+5. Captions appear on screen
+       ↓
+6. Transcript is saved locally
+```
+
+This demonstrates the offline-first design of the application.
+
+---
+
+# 🎯 Demo & Impact
+
+The LiveLine demo focuses on a realistic meeting or classroom environment.
+
+### Demonstration
+
+The demo showcases:
+
+* 🎤 Live microphone input
+* 📝 Real-time captions
+* ✈️ Offline operation
+* ⚡ NPU vs CPU latency
+* 🌍 Optional translation
+* 🖥️ Caption overlay
+* 📄 Local transcript export
+
+### Intended Impact
+
+LiveLine explores how on-device AI can make captioning more accessible in situations where cloud connectivity is unavailable or undesirable.
+
+Potential use cases include:
+
+* Accessibility support
+* Classrooms
+* Meetings
+* Interviews
+* Field work
+* Travel
+* Low-connectivity regions
+
+---
+
+# 🗺️ Roadmap
+
+* [ ] Additional Indian language support
+* [ ] Improved on-device translation
+* [ ] Speaker identification
+* [ ] Better caption styling and customization
+* [ ] Sign-language recognition as a complementary accessibility feature
+* [ ] Snapdragon handset/mobile version
+* [ ] More Snapdragon chipset optimization
+* [ ] Extended NPU benchmarking
+
+---
+
+# 🔮 Future Vision
+
+LiveLine aims to demonstrate a broader idea:
+
+> **AI does not always need the cloud.**
+
+With capable NPUs available on modern devices, applications such as speech recognition, translation, and accessibility tools can increasingly move closer to the user.
+
+LiveLine explores this approach through an offline-first captioning experience.
+
+---
+
+# 🏆 Built For
+
+**Snapdragon® AI Lab Build & Present Challenge**
+
+Powered by Qualcomm AI technologies.
+
+---
+
+# 📜 License
+
+Add your preferred open-source license here.
+
+For example:
+
+```text
+MIT License
+```
+
+---
+
+# 👨‍💻 Project
+
+**LiveLine**
+On-Device Live Captioning & Translation
+
+Built with:
+
+* Python
+* Whisper
+* ONNX Runtime
+* Qualcomm AI Hub
+* QNN
+* Snapdragon NPU
+* Tkinter
