@@ -1,5 +1,36 @@
 # LiveLine — setup
 
+LiveLine
+On-Device Live Captioning & Translation for Snapdragon-Powered HP PCs
+Snapdragon® AI Lab Build & Present Challenge — Solution Submission
+Problem
+Real-time captioning and translation today depend on cloud speech APIs. This creates three recurring failures: sensitive audio (meetings, interviews, classrooms) leaves the device and is exposed to third parties; the experience breaks entirely without a stable internet connection, which rules out rural schools, field teams, and low-bandwidth regions across India; and continuous cloud usage adds latency and per-minute cost that does not scale.
+Solution
+LiveLine is a fully offline captioning and translation assistant that runs entirely on a Snapdragon-powered HP PC's NPU. It transcribes speech in real time using Whisper (deployed via Qualcomm AI Hub), displays live captions in an always-on-top overlay, and optionally translates them — all without an internet connection, and without any audio leaving the device.
+●	Offline-first: works with zero connectivity, demonstrated live in airplane mode.
+●	Private by design: all inference happens on-device; nothing is uploaded.
+●	Built for accessibility: serves hearing-impaired users, non-native speakers, and low-bandwidth classrooms.
+Architecture
+Mic input is captured in short chunks and passed to Whisper (Whisper-Tiny / Whisper-Small-Quantized), running on the Snapdragon NPU via Qualcomm AI Hub's precompiled QNN ONNX models and the ONNX Runtime QNN execution provider. Transcribed text renders immediately in a caption overlay; an optional on-device machine-translation layer converts it into the selected target language before display.
+Why the Snapdragon NPU
+●	Latency: the Whisper encoder runs in roughly 21 ms on NPU, keeping captions close to real time.
+●	Battery life: NPU inference draws far less power than sustained cloud streaming and radio use.
+●	Privacy: no audio or transcript ever leaves the laptop.
+●	Reach: works identically in a connected city office or an offline rural classroom.
+Technical Implementation
+●	Speech-to-text: Whisper-Tiny / Whisper-Small-Quantized from Qualcomm AI Hub, deployed via precompiled QNN ONNX binaries for the target Snapdragon chipset.
+●	Inference runtime: ONNX Runtime with the QNN execution provider — NPU-accelerated, no cloud round-trip.
+●	Translation: a lightweight on-device MT model, kept optional so the core offline pipeline stays fast.
+●	Interface: an always-on-top caption overlay with language selection and continuous transcript export.
+●	Benchmarking: NPU vs. CPU inference latency measured directly on the target Snapdragon-powered HP PC.
+Demo & Impact
+The submitted demo shows LiveLine running fully offline — captured in airplane mode — in a realistic meeting or lecture scenario, alongside a side-by-side NPU vs. CPU latency comparison. The target impact is accessibility at the point of need: hearing-impaired users and non-native speakers get live captions without any cloud dependency, and low-bandwidth classrooms or field teams get a captioning tool that works regardless of connectivity.
+Roadmap
+●	Additional Indian language support for the translation layer.
+●	A sign-language recognition module as a complementary accessibility channel.
+●	A mobile / Snapdragon handset port.
+
+
 ## Step 1: Get it running today (CPU, no Snapdragon setup needed)
 
 ```bash
