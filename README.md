@@ -66,3 +66,15 @@ feed it mic chunks, display the returned text. A simple always-on-top
 window (Tkinter, or PyQt for nicer styling) works fine; no need for
 anything elaborate.
 
+## Rquirement 
+# --- Works immediately, CPU only (use this to build/test the app today) ---
+sounddevice==0.4.7
+numpy==1.26.4
+openai-whisper==20231117
+
+# --- NPU-accelerated path for your final Snapdragon submission ---
+# Install these once you've confirmed your exact chipset (see README Step 3).
+# qai-hub-models[whisper-tiny]
+# onnxruntime-qnn
+
+
